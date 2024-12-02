@@ -1,0 +1,62 @@
+﻿<Blazorise.ThemeProvider Theme="@theme">
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</Blazorise.ThemeProvider>
+
+
+@code{
+    public Theme theme = new Theme
+    {
+        IsRounded = true,
+        BodyOptions = new ThemeBodyOptions
+        {
+            BackgroundColor = "#2E2E2E", // Lighter gray-black for the body background
+            TextColor = "#FFFFFF" // White text
+        },
+        ColorOptions = new ThemeColorOptions
+        {
+            Primary = "#1F1F1F", // Dark gray for primary elements
+            Secondary = "#2B2B2B", // Slightly darker gray for secondary elements
+            Success = "#388E3C", // Dark green for success
+            Danger = "#D32F2F", // Dark red for danger
+            Warning = "#FFA000", // Amber for warning
+            Info = "#1976D2", // Blue for information
+            Dark = "#141414", // Very dark gray for dark elements
+            Light = "#FFFFFF" // White for light elements
+        },
+        BackgroundOptions = new ThemeBackgroundOptions
+        {
+            Primary = "#1F1F1F", // Dark gray for primary card backgrounds
+            Secondary = "#252525", // Slightly lighter for secondary card backgrounds
+            Success = "#1E4623", // Dark green for success backgrounds
+            Danger = "#7B1A1A", // Dark red for danger backgrounds
+            Warning = "#C66900", // Amber for warning backgrounds
+            Info = "#0B3861", // Blue for information backgrounds
+            Body = "#2E2E2E", // Lighter gray-black for main body background
+            Dark = "#1A1A1A", // Slightly lighter black for dark sections
+            Light = "#FFFFFF" // White for light sections
+        },
+        TextColorOptions = new ThemeTextColorOptions
+        {
+            Primary = "#FFFFFF", // White text for primary elements
+            Secondary = "#CCCCCC", // Light gray for secondary text
+            Success = "#388E3C", // Match success text color
+            Danger = "#D32F2F", // Match danger text color
+            Warning = "#FFA000", // Match warning text color
+            Info = "#1976D2", // Match information text color
+            Body = "#F0F0F0", // Slightly darker gray for body text
+            Dark = "#0F0F0F", // Black for light mode
+            Light = "#FFFFFF" // White for dark mode
+        }
+    };
+}

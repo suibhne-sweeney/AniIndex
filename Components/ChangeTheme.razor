@@ -1,0 +1,97 @@
+@using Themes
+
+<Button class="rounded-5" Clicked="@(()=>OnThemeColorChanged())" Color="Color.Primary" >
+    @if(Theme?.BodyOptions.BackgroundColor != light.lightTheme.BodyOptions.BackgroundColor)
+    {
+        <Icon Name="IconName.Moon" />
+    }
+    else
+    {
+        <Icon Name="IconName.Sun" />
+    }
+</Button>
+
+@code{
+    public Dark dark = new Dark();
+    public Light light = new Light();
+    Task OnThemeColorChanged()
+    {
+        if ( Theme?.BodyOptions.BackgroundColor != light.lightTheme.BodyOptions.BackgroundColor && Theme?.BodyOptions.BackgroundColor != null)
+        {
+            Theme.BodyOptions.BackgroundColor = light.lightTheme.BodyOptions.BackgroundColor;
+            Theme.BodyOptions.TextColor = light.lightTheme.BodyOptions.TextColor;
+
+            Theme.ColorOptions.Primary = light.lightTheme.ColorOptions.Primary;
+            Theme.ColorOptions.Secondary = light.lightTheme.ColorOptions.Secondary;
+            Theme.ColorOptions.Success = light.lightTheme.ColorOptions.Success;
+            Theme.ColorOptions.Danger = light.lightTheme.ColorOptions.Danger;
+            Theme.ColorOptions.Warning = light.lightTheme.ColorOptions.Warning;
+            Theme.ColorOptions.Info = light.lightTheme.ColorOptions.Info;
+            Theme.ColorOptions.Dark = light.lightTheme.ColorOptions.Dark;
+            Theme.ColorOptions.Light = light.lightTheme.ColorOptions.Light;
+
+            Theme.BackgroundOptions.Primary = light.lightTheme.BackgroundOptions.Primary;
+            Theme.BackgroundOptions.Secondary = light.lightTheme.BackgroundOptions.Secondary;
+            Theme.BackgroundOptions.Success = light.lightTheme.BackgroundOptions.Success;
+            Theme.BackgroundOptions.Danger = light.lightTheme.BackgroundOptions.Danger;
+            Theme.BackgroundOptions.Warning = light.lightTheme.BackgroundOptions.Warning;
+            Theme.BackgroundOptions.Info = light.lightTheme.BackgroundOptions.Info;
+            Theme.BackgroundOptions.Body = light.lightTheme.BackgroundOptions.Body;
+            Theme.BackgroundOptions.Dark = light.lightTheme.BackgroundOptions.Dark;
+            Theme.BackgroundOptions.Light = light.lightTheme.BackgroundOptions.Light;
+
+            Theme.TextColorOptions.Primary = light.lightTheme.TextColorOptions.Primary;
+            Theme.TextColorOptions.Secondary = light.lightTheme.TextColorOptions.Secondary;
+            Theme.TextColorOptions.Success = light.lightTheme.TextColorOptions.Success;
+            Theme.TextColorOptions.Danger = light.lightTheme.TextColorOptions.Danger;
+            Theme.TextColorOptions.Warning = light.lightTheme.TextColorOptions.Warning;
+            Theme.TextColorOptions.Info = light.lightTheme.TextColorOptions.Info;
+            Theme.TextColorOptions.Body = light.lightTheme.TextColorOptions.Body;
+            Theme.TextColorOptions.Dark = light.lightTheme.TextColorOptions.Dark;
+            Theme.TextColorOptions.Light = light.lightTheme.TextColorOptions.Light;
+
+        }
+        else if(Theme?.BodyOptions.BackgroundColor == light.lightTheme.BodyOptions.BackgroundColor && Theme?.BodyOptions.BackgroundColor != null)
+        {
+            // go back to dark theme
+            Theme.BodyOptions.BackgroundColor = dark.darkTheme.BodyOptions.BackgroundColor;
+            Theme.BodyOptions.TextColor = dark.darkTheme.BodyOptions.TextColor;
+
+            Theme.ColorOptions.Primary = dark.darkTheme.ColorOptions.Primary;
+            Theme.ColorOptions.Secondary = dark.darkTheme.ColorOptions.Secondary;
+            Theme.ColorOptions.Success = dark.darkTheme.ColorOptions.Success;
+            Theme.ColorOptions.Danger = dark.darkTheme.ColorOptions.Danger;
+            Theme.ColorOptions.Warning = dark.darkTheme.ColorOptions.Warning;
+            Theme.ColorOptions.Info = dark.darkTheme.ColorOptions.Info;
+            Theme.ColorOptions.Dark = dark.darkTheme.ColorOptions.Dark;
+            Theme.ColorOptions.Light = dark.darkTheme.ColorOptions.Light;
+
+            Theme.BackgroundOptions.Primary = dark.darkTheme.BackgroundOptions.Primary;
+            Theme.BackgroundOptions.Secondary = dark.darkTheme.BackgroundOptions.Secondary;
+            Theme.BackgroundOptions.Success = dark.darkTheme.BackgroundOptions.Success;
+            Theme.BackgroundOptions.Danger = dark.darkTheme.BackgroundOptions.Danger;
+            Theme.BackgroundOptions.Warning = dark.darkTheme.BackgroundOptions.Warning;
+            Theme.BackgroundOptions.Info = dark.darkTheme.BackgroundOptions.Info;
+            Theme.BackgroundOptions.Body = dark.darkTheme.BackgroundOptions.Body;
+            Theme.BackgroundOptions.Dark = dark.darkTheme.BackgroundOptions.Dark;
+            Theme.BackgroundOptions.Light = dark.darkTheme.BackgroundOptions.Light;
+
+            Theme.TextColorOptions.Primary = dark.darkTheme.TextColorOptions.Primary;
+            Theme.TextColorOptions.Secondary = dark.darkTheme.TextColorOptions.Secondary;
+            Theme.TextColorOptions.Success = dark.darkTheme.TextColorOptions.Success;
+            Theme.TextColorOptions.Danger = dark.darkTheme.TextColorOptions.Danger;
+            Theme.TextColorOptions.Warning = dark.darkTheme.TextColorOptions.Warning;
+            Theme.TextColorOptions.Info = dark.darkTheme.TextColorOptions.Info;
+            Theme.TextColorOptions.Body = dark.darkTheme.TextColorOptions.Body;
+            Theme.TextColorOptions.Dark = dark.darkTheme.TextColorOptions.Dark;
+            Theme.TextColorOptions.Light = dark.darkTheme.TextColorOptions.Light;
+        }
+
+
+        Theme?.ThemeHasChanged();
+
+        return Task.CompletedTask;
+    }
+
+    [CascadingParameter] Theme? Theme { get; set; }
+}

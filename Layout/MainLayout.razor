@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+@using AniIndex.Components
+<div class="page">
+    <main>
+        <Bar Breakpoint="Breakpoint.Desktop"
+            Background="Background.Dark"
+            class="m-0 px-3">
+            <BarBrand TextColor="TextColor.Primary">
+                <h3>AniDex<span style="font-size: small;" class="text-info">.me</span></h3>
+            </BarBrand>
+            <BarToggler />
+            <BarMenu>
+                <BarStart>
+                    <BarItem>
+                        <BarLink TextColor="TextColor.Primary" To="#home">Home</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink TextColor="TextColor.Primary" To="#docs">Documentation</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarDropdown>
+                            <BarDropdownToggle TextColor="TextColor.Primary">Dropdown</BarDropdownToggle>
+                            <BarDropdownMenu>
+                                <BarDropdownItem>Action</BarDropdownItem>
+                                <BarDropdownDivider />
+                                <BarDropdownItem>Another action</BarDropdownItem>
+                            </BarDropdownMenu>
+                        </BarDropdown>
+                    </BarItem>
+                </BarStart>
+                <BarEnd>
+                    <BarItem>
+                        <ChangeTheme />
+                    </BarItem>
+                </BarEnd>
+            </BarMenu>
+        </Bar>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

@@ -1,0 +1,258 @@
+﻿@page "/"
+@inject HttpClient Http
+@using AniIndex.Components
+@using System.Collections
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
+<PageTitle>Home</PageTitle>
+
+<div>
+  <div class="d-flex align-items-center">
+    <Button Outline Clicked="() => DecSeason()" class="mx-2 rounded-5" Color="Color.Info"><Icon  style="font-size: larger;" Name="IconName.AngleLeft"/></Button>
+    <h2>@(char.ToUpper(weatherCycle[indexOfSeason][0]) + weatherCycle[indexOfSeason].Substring(1)) @currentYear Anime</h2>
+    <Button Outline Clicked="() => IncSeason()" class="mx-2 rounded-5" Color="Color.Info"><Icon style="font-size: larger;" Name="IconName.AngleRight"/></Button>
+    <Buttons class="mx-3">
+      <Button Clicked="() => ChangeMediaType(Filter.tv)" class="rounded-start-5" Color="Color.Primary">Television</Button>
+      <Button Clicked="() => ChangeMediaType(Filter.movie)" Color="Color.Primary">Movies</Button>
+      <Button Clicked="() => ChangeMediaType(Filter.ona)" class=" rounded-end-5" Color="Color.Primary">ONAs</Button>
+    </Buttons>
+  </div>
+  <br>
+
+
+    @if (seasonList == null)
+    {
+      <Row>
+        <Column>
+          <Alert Color="Color.Info">
+            <strong>Loading...</strong> Please wait while we fetch the anime list.
+          </Alert>
+        </Column>
+      </Row>
+    }
+    else if (seasonList.Count == 0)
+    {
+      <Row>
+        <Column>
+          <Alert Color="Color.Warning">
+            No anime found for the current season.
+          </Alert>
+        </Column>
+      </Row>
+    }
+    else
+    {
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+          @foreach (var anime in seasonList ?? [])
+          {
+            <div class="col">
+                <Card Background="Background.Primary" Shadow="Shadow.Small" class="h-100">
+                    <CardHeader Background="Background.Dark" TextColor="TextColor.Primary" class="h-100 text-center">
+                      <Dropdown style="position: absolute; right: -12px; top: -20px;">
+                          <DropdownToggle class=" rounded-5" Color="Color.Primary">
+                            @if(!flagged.ContainsKey(anime.mal_id))
+                            {
+                              <Icon Name="IconName.Flag" />
+                            }
+                            else if(flagged[anime.mal_id] == Flag.watching)
+                            {
+                              <Icon TextColor="TextColor.Warning" Name="IconName.Eye" />
+                            }
+                            else if(flagged[anime.mal_id] == Flag.watched)
+                            {
+                              <Icon TextColor="TextColor.Success" Name="IconName.CheckCircle" />
+                            }
+                            else
+                            {
+                              <Icon TextColor="TextColor.Danger" Name="IconName.Ban" />            
+                            }
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem Clicked="() => AddFavorite(anime.mal_id, Flag.watched)">Watched</DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem Clicked="() => AddFavorite(anime.mal_id, Flag.watching)">Watching</DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem Clicked="() => AddFavorite(anime.mal_id, Flag.skipping)">Skipping</DropdownItem>
+                          </DropdownMenu>
+                      </Dropdown>
+                        <h5 class="text-truncate">
+                            <a href="@anime.url" style="text-decoration: none;">
+                                @anime.title
+                            </a>
+                        </h5>
+                        @foreach (var genre in anime.genres ?? [])
+                        {
+                            <Badge Color="Color.Secondary" class="mx-1" Pill>@genre.name</Badge>
+                        }
+                    </CardHeader>
+                    <div class="row g-0">
+                        <div class="col-5 d-flex align-items-center justify-content-center" style="height: 100%;">
+                            <CardImage 
+                                onclick="@ShowModal"
+                                Source="@anime?.images?.webp?.large_image_url" 
+                                Alt="Card image" 
+                                class="img-fluid rounded" 
+                                style="cursor: pointer; object-fit: cover; max-height: 240px; width: auto;" />
+                        </div>
+                        <Modal @ref="modalRef">
+                            <ModalContent Size="ModalSize.ExtraLarge" Background="Background.Body" Centered >
+                              <ModalHeader>
+                                <ModalTitle TextColor="TextColor.Primary">Trailer: @anime?.title</ModalTitle>
+                                <CloseButton TextColor="TextColor.Primary" />
+                              </ModalHeader>
+                              <ModalBody>
+                              <div style="position: relative; width: 100%; padding-top: 56.25%;">
+                                <iframe 
+                                    src="@anime?.trailer?.embed_url" 
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                                    frameborder="0">
+                                </iframe>
+                              </div>
+                              </ModalBody>
+                            </ModalContent>
+                        </Modal>
+                        <div class="col-7">
+                            <CardBody TextColor="TextColor.Primary" class="d-flex flex-column">
+                                <CardText class="mb-1 text-center">
+                                    <h6>
+                                        <a href="@anime?.studios?[0].url" style="text-decoration: none;">
+                                            @anime?.studios?[0].name
+                                        </a>
+                                    </h6>
+                                </CardText>
+                                <CardText class="mb-1" style="font-size: small;">
+                                  <div class="row g-0">
+                                    <div class="col-6">
+                                        <span>@anime?.source</span>
+                                    </div>
+                                    <div class="col-6">
+                                      <span>@anime?.episodes eps × @anime?.duration?.Substring(0, 6)</span>
+                                    </div>
+                                  </div>
+                                </CardText>
+                                <CardText style="font-size: small;" class="mb-1">
+                                    <strong>Status:</strong> <span>@anime?.status</span>
+                                </CardText>
+                                @if (!string.IsNullOrEmpty(anime?.synopsis))
+                                {
+                                    <CardText 
+                                        class="flex-grow-1 overflow-auto" 
+                                        style="max-height: 120px; font-size: small;">
+                                        <strong>Synopsis:</strong> 
+                                        <p class="m-0">
+                                            @anime.synopsis
+                                        </p>
+                                    </CardText>
+                                }
+                            </CardBody>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+          }
+      </div>
+    }
+</div>
+
+
+
+<style>
+    .flex-grow-1.overflow-auto::-webkit-scrollbar {
+      background-color: #747474;
+      width: 2px;
+    }
+    .flex-grow-1.overflow-auto::-webkit-scrollbar-thumb {
+      background-color: #141414;
+    }
+</style>
+
+@code {
+  private List<Data>? seasonList;
+  private int currentMonth = DateTime.Now.Month;
+  private int currentYear = DateTime.Now.Year;
+  private List<string> weatherCycle = ["spring", "summer", "fall", "winter"];
+  private Filter filter = Filter.tv;
+  private Dictionary<int, Flag> flagged = new();
+  private enum Filter
+  {
+    tv, movie, special, ona, music
+  }
+  private enum Flag
+  {
+    watching, watched, skipping
+  }
+  private int indexOfSeason;
+
+    private Modal modalRef;
+
+    private Task ShowModal()
+    {
+      return modalRef.Show();
+    }
+
+    private Task HideModal()
+    {
+      return modalRef.Hide();
+    }
+
+  protected async Task DecSeason()
+  {
+    if(indexOfSeason == 3)
+    {
+      indexOfSeason--;
+      currentYear--;
+    } 
+    else if(indexOfSeason == 0) indexOfSeason = 3;
+    else indexOfSeason--;
+    await FetchSeasonData();
+  }
+
+  protected async Task IncSeason()
+  {
+    if(indexOfSeason == 2)
+    {
+      indexOfSeason++;
+      currentYear++;
+    } 
+    else if(indexOfSeason == 3) indexOfSeason = 0;
+    else indexOfSeason++;
+    await FetchSeasonData();
+  }
+
+  private async Task FetchSeasonData()
+  {
+      var response = await Http.GetFromJsonAsync<AnimeResponse>(
+          $"https://api.jikan.moe/v4/seasons/{currentYear}/{weatherCycle[indexOfSeason]}?filter={filter}"
+      );
+      seasonList = response?.data?.ToList<Data>() ?? new List<Data>();
+      StateHasChanged();
+  }
+
+  private async Task ChangeMediaType(Filter type)
+  {
+    filter = type;
+    await FetchSeasonData();
+  }
+  private async Task AddFavorite(int id, Flag flag)
+  {
+    if(flagged.ContainsKey(id))
+    {
+      flagged[id] = flag;
+    }
+    else flagged.Add(id, flag);
+    await LocalStorage.SetItemAsync("flagged", flagged);
+  }
+  protected override async Task OnInitializedAsync()
+  {
+    try
+    {
+      flagged = await LocalStorage.GetItemAsync<Dictionary<int, Flag>>("flagged") ?? new Dictionary<int, Flag>();
+      indexOfSeason = (currentMonth - 3 + 12) % 12 / 3;
+      await FetchSeasonData();
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
+    }
+  }
+}
