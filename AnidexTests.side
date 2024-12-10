@@ -1,0 +1,158 @@
+{
+  "id": "f59e0377-f517-44e1-953c-7c00878f4bdf",
+  "version": "2.0",
+  "name": "AnidexTests",
+  "url": "https://www.anidex.me",
+  "tests": [{
+    "id": "9fe569cc-9848-4a30-947d-ca38e1ada571",
+    "name": "Click Anime Name Link",
+    "commands": [{
+      "id": "d3b483b9-f067-417c-a04e-45a6a06c7efa",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7f7daf85-532b-4dcd-a71a-818f633b569f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1604x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "405606f9-aaab-4f6c-baf6-5d68ba4ee30c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Dungeon Meshi",
+      "targets": [
+        ["linkText=Dungeon Meshi", "linkText"],
+        ["css=.col:nth-child(3) .text-truncate > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Dungeon Meshi')]", "xpath:link"],
+        ["xpath=//div[@id='app']/div/main/article/div/div[2]/div[3]/div/div/h5/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://myanimelist.net/anime/52701/Dungeon_Meshi')]", "xpath:href"],
+        ["xpath=//div[3]/div/div/h5/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Dungeon Meshi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "5285bb6a-bd64-4588-b52e-03f5f21a5994",
+    "name": "Click Dark/Light Mode Button",
+    "commands": [{
+      "id": "101f611f-d422-4fc3-9037-f4ce4305b04f",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7ae4aaf-6530-4a49-8e43-4377f4e63d27",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1604x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e3d49cab-2582-4aa2-a4fd-8b92665df0fb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa-moon",
+      "targets": [
+        ["css=.fa-moon", "css:finder"],
+        ["xpath=//button[@id='0HN8PCF158JE8']/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "bec9a39b-b458-4d12-8a86-10277019d356",
+    "name": "Click Categories Button",
+    "commands": [{
+      "id": "20a892cd-261c-40ad-ad9c-44dc5ba42415",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c4c889b6-d210-4b4e-8391-9eafdb9b0372",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1604x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "62550e2f-37f2-4129-b056-1f24ac4af2c1",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\30HN8PCH1JCOH5",
+      "targets": [
+        ["id=0HN8PCH1JCOH5", "id"],
+        ["css=#\\30HN8PCH1JCOH5", "css:finder"],
+        ["xpath=//button[@id='0HN8PCH1JCOH5']", "xpath:attributes"],
+        ["xpath=//div[@id='app']/div/main/article/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Movies')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "46c50986-0ca7-4fc8-8efc-8e4a8b433a82",
+      "comment": "",
+      "command": "click",
+      "target": "css=#\\30HN8PCI4POEV6",
+      "targets": [
+        ["id=0HN8PCI4POEV6", "id"],
+        ["css=#\\30HN8PCI4POEV6", "css:finder"],
+        ["xpath=//button[@id='0HN8PCI4POEV6']", "xpath:attributes"],
+        ["xpath=//div[@id='app']/div/main/article/div/div/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'ONAs')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "d08802df-ed0f-46b6-9aa3-2731576a90aa",
+    "name": "Click Animation Company Link",
+    "commands": [{
+      "id": "a9d3e4aa-ccfd-4964-be9f-93e8f46d7a6b",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d73d4ae-5e90-433a-9bd3-46868d6428b2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1604x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a7673fb-8e55-4cb5-bb51-370efb3e2bfd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Lerche",
+      "targets": [
+        ["linkText=Lerche", "linkText"],
+        ["css=.col:nth-child(2) .row a", "css:finder"],
+        ["xpath=//a[contains(text(),'Lerche')]", "xpath:link"],
+        ["xpath=//div[@id='app']/div/main/article/div/div[2]/div[2]/div/div[2]/div[3]/div/div/h6/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://myanimelist.net/anime/producer/456/Lerche')]", "xpath:href"],
+        ["xpath=//div[2]/div/div[2]/div[3]/div/div/h6/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Lerche')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "ed31aaa3-6f91-4ec7-a499-e6d68e42edb9",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["9fe569cc-9848-4a30-947d-ca38e1ada571"]
+  }],
+  "urls": ["https://www.anidex.me/"],
+  "plugins": []
+}

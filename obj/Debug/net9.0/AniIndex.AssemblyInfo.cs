@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AniIndex")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f940851604dee83d9183c1cbd95e34ac1c79583f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e82a31ebb6be0a341ca3b4a408abe46d74d97647")]
 [assembly: System.Reflection.AssemblyProductAttribute("AniIndex")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AniIndex")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
